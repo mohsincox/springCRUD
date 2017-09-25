@@ -36,15 +36,13 @@ public class EmpController {
 		Statement stt = con.createStatement();
 		stt.execute("USE testdb");
 		stt.execute("INSERT INTO employees (name, salary, designation) VALUES ('"+name+"',"+salary+",'"+desigmation+"')");
-        //System.out.println(emp.getName()+" "+emp.getSalary()+" "+emp.getDesignation());  
+          
         return new ModelAndView("redirect:/viewemp"); 
     }  
       
     @RequestMapping("/viewemp")  
     public ModelAndView viewemp() throws Exception 
-    {  
-        //write the code to get all employees from DAO  
-        //here, we are writing manual code of list for easy understanding  
+    {   
     	Class.forName("com.mysql.jdbc.Driver").newInstance();
         String url = "jdbc:mysql://localhost:3306";
         String user = "root";
@@ -94,18 +92,12 @@ public class EmpController {
         int id = emp.getId();
         String name = emp.getName();
         float salary = emp.getSalary();
-        //String desigmation = emp.getDesignation();
-        
-//        int id = request.getParameter("id");
-//        String first_name=request.getParameter("first_name");
-//        String last_name=request.getParameter("last_name");
-//        String city_name=request.getParameter("city_name");
-//        String email=request.getParameter("email");
+        String designation = emp.getDesignation();
         
 		Connection con = DriverManager.getConnection(url, user, password);
 		Statement stt = con.createStatement();
 		stt.execute("USE testdb");
-		stt.execute("update employees set name = '"+name+"', salary = "+salary+" where id = "+id+"");
+		stt.execute("update employees set name = '"+name+"', salary = "+salary+", designation = '"+designation+"' where id = "+id+"");
     	return new ModelAndView("redirect:/viewemp");  
     }
     
